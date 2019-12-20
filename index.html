@@ -15,7 +15,17 @@ featured_image: /images/remind-to-background.png
 
 			<div class="blog-post__header">
 				<h2 class="blog-post__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-				<p class="blog-post__subtitle">{{ post.date | date_to_long_string }}</p>
+				<p class="blog-post__subtitle">
+					{{ post.date | date_to_long_string }} | 
+					<span class="reading-time" title="Estimated read time">
+						{% assign words = post.content | number_of_words %}
+						{% if words < 360 %}
+							1 min read
+						{% else %}
+							{{ words | divided_by:180 }} min read
+						{% endif %}
+					</span>
+				</p>
 			</div>
 
 			{% if post.featured_image %}
